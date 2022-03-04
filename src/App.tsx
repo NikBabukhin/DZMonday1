@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import {NewComponent} from "./NewComponent";
+import {Button} from "./components/Button";
 
 function App() {
     const topCars = [
@@ -11,9 +12,8 @@ function App() {
 
     return (
         <div className="App">
-            <div>Before NewComponent</div>
             <NewComponent contentComponent={topCars}/>
-            <div>After NewComponent</div>
+            <Button/>
         </div>
     );
 }
