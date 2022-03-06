@@ -4,8 +4,20 @@ import {NewComponent} from "./NewComponent";
 import {Button} from "./components/Button";
 import {Header} from "./components/Header";
 import {Body} from "./components/Body";
+import {Banknotes} from "./components/Banknotes";
 
 function App() {
+    const [money, setMoney] = useState([
+        { banknots: 'Dollars', value: 100, number: ' a1234567890' },
+        { banknots: 'Dollars', value: 50, number: ' z1234567890' },
+        { banknots: 'RUBLS', value: 100, number: ' w1234567890' },
+        { banknots: 'Dollars', value: 100, number: ' e1234567890' },
+        { banknots: 'Dollars', value: 50, number: ' c1234567890' },
+        { banknots: 'RUBLS', value: 100, number: ' r1234567890' },
+        { banknots: 'Dollars', value: 50, number: ' x1234567890' },
+        { banknots: 'RUBLS', value: 50, number: ' v1234567890' },
+    ])
+
     const topCars = [
         {manufacturer: 'BMW', model: 'm5cs'},
         {manufacturer: 'Mercedes', model: 'e63s'},
@@ -49,6 +61,7 @@ function App() {
             <button id={'1'} onClick={() => changeCounter(1)}>+</button>
             <button id={'2'} onClick={() => changeCounter(2)}>0</button>
             <button id={'3'} onClick={() => changeCounter(3)}>-</button>
+            <Banknotes/>
         </div>
     );
 }
