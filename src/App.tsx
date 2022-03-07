@@ -5,6 +5,7 @@ import {Button} from "./components/Button";
 import {Header} from "./components/Header";
 import {Body} from "./components/Body";
 import {Banknotes} from "./components/Banknotes";
+import {SortButtons} from "./components/SortButtons";
 
 function App() {
     const [money, setMoney] = useState([
@@ -18,42 +19,37 @@ function App() {
         {banknotes: 'RUB', value: 50, number: ' v1234567890'},
     ])
 
-    type moneyTypes = {
-        banknotes: string
-        value: number
-        number: string
+    const [filterCount, setFilter] = useState('All')
+
+    let currentMoneyArray = money;
+
+    const onClickHandler = (numberOfElement: string) => {
+        let moneyArrayIfDeletedItem = currentMoneyArray.filter(el => el.number !== numberOfElement)
+        setMoney(moneyArrayIfDeletedItem);
+        console.log(numberOfElement);
     }
 
-    const [filter, setFilter] = useState('all')
-    let currentMoney = money
-
-    const deleteBanknote = (idElement: string) => {
-        let filteredMoney = currentMoney.filter((el: moneyTypes) => el.number !== idElement)
-        setMoney(filteredMoney);
+    if (filterCount === 'Dollars') {
+        currentMoneyArray = money.filter(el => el.banknotes === 'Dollars')
+    }
+    if (filterCount === 'RUB') {
+        currentMoneyArray = money.filter(el => el.banknotes === 'RUB')
     }
 
-    const setFilterMoney = (valueFilter: string) => {
-        setFilter(valueFilter);
-        if (filter === 'RUB') {
-            currentMoney = money.filter((el: moneyTypes) => el.banknotes === 'RUB')
-            console.log(filter, valueFilter)
-        } else if (filter === 'Dollars') {
-            currentMoney = money.filter((el: moneyTypes) => el.banknotes === 'Dollars')
-            console.log(filter, valueFilter)
-        } else {
-            currentMoney = money;
-            console.log(filter, valueFilter)
-        }
-        setMoney(currentMoney)
+    const sortMoneyArray = (filterCount: 'Dollars' | 'RUB' | 'All') => {
+        setFilter(filterCount)
+        currentMoneyArray = money.filter(el => el.banknotes !== filterCount)
+        console.log(currentMoneyArray, filterCount);
     }
 
-    console.log(money, currentMoney);
     return (
-        <div className="App"><Banknotes dataBanknotes={currentMoney}
-                                        callbackFuncDelete={deleteBanknote}
-                                        callbackFuncSortAll={setFilterMoney}/></div>
-    );
+        <div>
+            <Banknotes moneyData={currentMoneyArray} callback={onClickHandler}/>
+            <SortButtons callback={sortMoneyArray}/>
+        </div>
+    )
 }
+
 
 export default App;
 

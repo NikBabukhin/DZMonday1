@@ -1,46 +1,32 @@
-import {useState} from "react";
+import React, {useState} from "react";
 
-type BanknotesPropsType = {
-    banknotes: string,
-    value: number,
-    number: string,
-}
-type BanknotesPropsTypeAll = {
-    dataBanknotes: Array<BanknotesPropsType>
-    callbackFuncDelete: (el: string) => void
-    callbackFuncSortAll: (el: string) => void
+type MoneyDataArrayType = {
+    banknotes: string
+    value: number
+    number: string
 }
 
+type moneyDataPropsType = {
+    moneyData: Array<MoneyDataArrayType>
+    callback: (el: string)=>void
+}
 
-export const Banknotes = (props: BanknotesPropsTypeAll) => {
 
-    const onClickHandlerDelete = (idElement: string) => {
-        props.callbackFuncDelete(idElement);
-    }
-    const onClickHandlerSort = (el:string) => {
-        props.callbackFuncSortAll(el)
-        console.log(props.dataBanknotes, el);
-    }
-
+export const Banknotes = (props: moneyDataPropsType) => {
     return (
         <div>
             <ul>
-                {props.dataBanknotes.map((el, index: number) => {
+                {props.moneyData.map((el:MoneyDataArrayType) => {
                     return (
-                        <li key={index}>
-                            <span>{el.banknotes} </span>
-                            <span>{el.value} </span>
-                            <span>{el.number} </span>
-                            <button onClick={() => onClickHandlerDelete(el.number)}>Delete banknote</button>
+                        <li key={el.number}>
+                            <span>{el.banknotes}</span>
+                            <span>{el.value}</span>
+                            <span>{el.number}</span>
+                            <button onClick={() => props.callback(el.number)}>Delete</button>
                         </li>
                     )
                 })}
             </ul>
-            <div>
-                <button onClick={()=>onClickHandlerSort('Dollars')}>Show Dollars</button>
-                <button onClick={()=>onClickHandlerSort('RUB')}>Show Rubles</button>
-                <button onClick={()=>onClickHandlerSort('all')}>Show All</button>
-            </div>
         </div>
     )
 }
